@@ -58,7 +58,11 @@ camera.lookAt(scene.position);
 //     this.k = 30;
 // };
 
-var guiMass = 100;
+// var guiMass = 100;
+
+var guiMass = new function(){
+    this.m = 100;
+}
 
 var R = 1;
 var l = 5;
@@ -74,12 +78,12 @@ var colour =  {
     color: 0xFE98A0
 };
 
-// var gui = new dat.GUI();
+var gui = new dat.GUI();
 // let gui_X = gui.addFolder('X_motion');
 // let gui_Y = gui.addFolder('Y_motion');
 // let gui_Z = gui.addFolder('Z_motion');
 
-// gui.add(guiMass, 'm' , 0.1, 10);
+gui.add(guiMass, 'm' , 1, 100);
 
 // gui_X.add(guiControls_X, 'R',0,10);
 // gui_X.add(guiControls_X, 'L',0,100);
@@ -91,7 +95,7 @@ var colour =  {
 // gui_Z.add(guiControls_Z, 'b',0,10);
 // gui_Z.add(guiControls_Z, 'k',0,100);
 
-// gui.addColor( colour, 'color' ).onChange( function() { sphere.material.color.set( colour.color ); } );
+gui.addColor( colour, 'color' ).onChange( function() { sphere.material.color.set( colour.color ); } );
 
 
 function Data(location, accel, vel){
@@ -122,7 +126,7 @@ var GameLoop = function(){
     X.vel += X.accel*dt;
     sphere.position.x += X.vel * dt;
     X.location = sphere.position.getComponent(0);
-    X.accel = ( (chi*n*I*pi*Math.pow(a,2))/(2) *( ((X.location / Math.pow((Math.pow(R,2) + Math.pow(X.location, 2)),0.5)) - (X.location - R)/(Math.pow(( Math.pow((X.location - L),2) + R*R) ,0.5)) ) * ( -(l-L+X.location)/(Math.pow(Math.pow(l-L+X.location,2)+R*R , 0.5)) + 1/(Math.pow(1+Math.pow(R/(l+X.location),2),0.5)) + 1/(Math.pow((1 + Math.pow(R/(X.location-L),2)),0.5)) - 1/(Math.pow(1+(Math.pow(R/X.location , 2)),0.5))) + ( -1/(Math.pow((Math.pow(X.location - L,2) + R*R),0.5)) + (Math.pow(X.location-L,2))/(Math.pow((Math.pow(X.location-L , 2)+R*R),1.5)) - Math.pow(X.location,2)/(Math.pow(R*R + X.location * X.location,1.5)) +  1/(Math.pow(1+ Math.pow(R/X.location ,2),0.5)) ) * ( -Math.pow(Math.pow(l-L+X.location,2) + R*R,0.5) + Math.pow(Math.pow(l+X.location,2) + R*R,0.5) + Math.pow(Math.pow(X.location-L,2)+R*R,0.5) - Math.pow(R*R + X.location * X.location,0.5)  )  )  )/guiMass;
+    X.accel = ( (chi*n*I*pi*Math.pow(a,2))/(2) *( ((X.location / Math.pow((Math.pow(R,2) + Math.pow(X.location, 2)),0.5)) - (X.location - R)/(Math.pow(( Math.pow((X.location - L),2) + R*R) ,0.5)) ) * ( -(l-L+X.location)/(Math.pow(Math.pow(l-L+X.location,2)+R*R , 0.5)) + 1/(Math.pow(1+Math.pow(R/(l+X.location),2),0.5)) + 1/(Math.pow((1 + Math.pow(R/(X.location-L),2)),0.5)) - 1/(Math.pow(1+(Math.pow(R/X.location , 2)),0.5))) + ( -1/(Math.pow((Math.pow(X.location - L,2) + R*R),0.5)) + (Math.pow(X.location-L,2))/(Math.pow((Math.pow(X.location-L , 2)+R*R),1.5)) - Math.pow(X.location,2)/(Math.pow(R*R + X.location * X.location,1.5)) +  1/(Math.pow(1+ Math.pow(R/X.location ,2),0.5)) ) * ( -Math.pow(Math.pow(l-L+X.location,2) + R*R,0.5) + Math.pow(Math.pow(l+X.location,2) + R*R,0.5) + Math.pow(Math.pow(X.location-L,2)+R*R,0.5) - Math.pow(R*R + X.location * X.location,0.5)  )  )  )/guiMass.m;
 
     
 

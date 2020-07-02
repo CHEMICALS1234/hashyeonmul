@@ -66,7 +66,7 @@ var guiMass = new function(){
 
 var R = 1;
 var l = 5;
-var L = 10;
+var L = 25;
 
 const chi = 2;
 const n = 100;
